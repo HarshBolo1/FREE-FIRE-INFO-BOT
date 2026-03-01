@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package proto;
+
+message PlatformRegisterReq {
+  string nickname = 1;
+  string access_token = 2;
+  string open_id = 3;
+  // Field 4 not present in your message, skipping.
+
+  uint32 avatar_id = 5;
+  uint32 platform_type = 6;
+  uint32 platform_sdk_id = 7;
+  // Fields 8, 9, 10, 11, 12 not present in current message, skipping.
+
+  EAuth_ClientUsingVersion using_version = 13;
+
+  // These fields were present in decode_raw but not in your proto, add them:
+  bytes platform_register_info = 14;  // Could also be bytes, but string for now
+  string language = 15;      // "en" value, so language/locale
+  uint32 unknown_16 = 16;    // Could be enum/flag, kept as uint32
+  uint32 unknown_17 = 17;    // Could be enum/flag, kept as uint32
+}
+
+enum EAuth_ClientUsingVersion {
+  ClientUsingVersion_NONE    = 0;
+  ClientUsingVersion_NORMAL  = 1;
+  ClientUsingVersion_MAX     = 2;
+  ClientUsingVersion_FFI     = 3;
+  ClientUsingVersion_MAX_HPE = 4;
+}
