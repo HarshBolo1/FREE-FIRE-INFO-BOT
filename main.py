@@ -6,9 +6,9 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 
 # ================= CONFIG =================
-BOT_TOKEN = "8466154917:AAEanaHGULeHAwsV9pvkxLcGyyV1F2lSWvk"
-ALLOWED_GROUP_ID = -1003512881577
-OWNER_ID = 6474022249
+BOT_TOKEN = "8779390298:AAESD4PYHnsd-jSnu9_X8AXyS-klzrldO9I"
+ALLOWED_GROUP_ID = -5264730215
+OWNER_ID = 6022911800
 SERVERS = ["BD", "IND", "PK"]
 SPAM_DELAY = 0.8
 MAX_LENGTH = 800
