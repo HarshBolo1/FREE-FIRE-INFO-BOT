@@ -1,3 +1,6 @@
+from flask import Flask
+from threading import Thread
+import os
 import asyncio
 import time
 import json
@@ -243,12 +246,33 @@ Guild Level: {clan.get('clanLevel','N/A')}
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🔥 FF INFO BOT READY 🔥\n\nUse:\n/inf uid\n/inf server uid")
 
+# ================= RENDER KEEP-ALIVE HACK =================
+flask_app = Flask(__name__)
+
+@flask_app.route('/')
+def home():
+    return "🔥 FF Bot is awake and running!"
+
+def run_flask():
+    # Render assigns a dynamic port, so we must grab it from the environment
+    port = int(os.environ.get("PORT", 8080))
+    flask_app.run(host='0.0.0.0', port=port)
+
+def keep_alive():
+    t = Thread(target=run_flask)
+    t.start()
+# ==========================================================
+
+
 if __name__ == "__main__":
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("inf", inf))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, anti_spam))
+    
+    print("Starting Keep-Alive Web Server...")
+    keep_alive() # <--- THIS STARTS THE FLASK SERVER
     
     print("Bot is polling...")
     app.run_polling()
